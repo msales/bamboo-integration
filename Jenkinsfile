@@ -23,6 +23,7 @@ pipeline {
           println git_log
           jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_tag)
+          // comment 1
         }
       }
     }

@@ -24,6 +24,7 @@ pipeline {
           jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_tag)
           // comment 1
+          // comment 2
         }
       }
     }

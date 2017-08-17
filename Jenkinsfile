@@ -19,6 +19,9 @@ pipeline {
         sh 'env'
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
+          def git_log = sh(returnStdout: true, script: "git log -1 ${git_tag} --oneline | grep -Eo '([A-Z]{3,}-)([0-9]+)' | uniq").trim()
+
+          println git_log
           jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_tag)
           //def jiraTicketsList = jiraTicketsFromLog()

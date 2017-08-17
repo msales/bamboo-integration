@@ -18,7 +18,7 @@ pipeline {
         sh 'env'
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
-          def jiraVersion = jiraGetVersion id: "${git_tag}", site: 'msales'
+          def jiraVersion = jiraGetVersion failOnError: false, id: "${git_tag}", site: 'msales'
           echo "VERSION: ${git_tag}"
           if ( jiraVersion ) {
             println "${jiraVersion}"

@@ -21,7 +21,12 @@ pipeline {
           if ( jiraVersion.successful ) {
             println "${jiraVersion}"
           } else {
-            println "Creating JIRA Version"
+            def blt_new_version = [ name: "${git_tag}",
+                        archived: false,
+                        released: false,
+                        description: "OUI Version: ${git_tag}",
+                        project: 'BLT' ]
+            jiraNewVersion version: blt_new_version, site: 'msales'
           }
         }
       }

@@ -20,6 +20,8 @@ pipeline {
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           jiraVersion(git_tag, JIRA_PROJECT)
+          jiraTicketsFromLog(git_tag)
+          //def jiraTicketsList = jiraTicketsFromLog()
           // jira
         }
       }

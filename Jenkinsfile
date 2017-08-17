@@ -18,6 +18,7 @@ pipeline {
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           jiraVersion(git_tag, 'BLT')
+          // comment
         }
       }
     }

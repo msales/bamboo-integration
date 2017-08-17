@@ -22,7 +22,7 @@ pipeline {
           def git_log = sh(returnStdout: true, script: "git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z]{3,}-)([0-9]+)' | uniq").trim()
           println git_log
           jiraVersion(git_tag, JIRA_PROJECT)
-          jiraTicketsFromLog(git_tag)
+          jiraTicketsFromLog(git_log)
         }
       }
     }

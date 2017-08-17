@@ -14,7 +14,6 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        slackNotification('STARTED', 'msales', 'bamboo-integration', SLACK_WEBHOOK_URL)
         sh 'env'
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
@@ -29,54 +28,10 @@ pipeline {
         }
       }
     }
-    stage('Build') {
-      steps {
-        echo "Building..."
-      }
-    }
-    stage('Staging') {
-      when {
-        anyOf {
-          branch 'master';
-          branch 'candidate'
-        }
-      }
-      steps {
-        // get lists of hosts from ansible
-        echo "Deploying to STAGING"
-      }
-    }
-    stage('Test') {
-      steps {
-        echo "Testing..."
-      }
-    }
-    stage('Production') {
-      when {
-        anyOf {
-          branch 'master';
-          branch 'candidate'
-        }
-      }
-      steps {
-        input id: 'Deploy_staging', message: 'Deploy to PRODUCTION ?'
-        // get lists of hosts from ansible
-        echo "LAMBDA: aws_jira_version_deploy_webhook"
-      }
-    }
   }
   post {
     always {
       cleanWs notFailBuild: true
-    }
-    success {
-      slackNotification('SUCCESSFUL', 'msales', 'bamboo-integration', SLACK_WEBHOOK_URL)
-    }
-    failure {
-      slackNotification('FAILED', 'msales', 'bamboo-integration', SLACK_WEBHOOK_URL)
-    }
-    aborted {
-      slackNotification('ABORTED', 'msales', 'bamboo-integration', SLACK_WEBHOOK_URL)
     }
   }
 }

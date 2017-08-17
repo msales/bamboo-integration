@@ -18,13 +18,9 @@ pipeline {
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           jiraVersion(git_tag, 'BLT')
+          // jira
         }
       }
-    }
-  }
-  post {
-    always {
-      cleanWs notFailBuild: true
     }
   }
 }

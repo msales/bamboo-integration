@@ -10,7 +10,6 @@ pipeline {
   environment {
     SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
     JIRA_PROJECT = "BLT"
-
   }
 
   stages {
@@ -24,8 +23,6 @@ pipeline {
           println git_log
           jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_tag)
-          //def jiraTicketsList = jiraTicketsFromLog()
-          // jira
         }
       }
     }

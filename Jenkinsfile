@@ -17,9 +17,10 @@ pipeline {
         slackNotification('STARTED', 'msales', 'bamboo-integration', SLACK_WEBHOOK_URL)
         sh 'env'
         script {
+          def jiraVersion = ''
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           echo "VERSION: ${git_tag}"
-          if (def jiraVersion = jiraGetVersion id: "${git_tag}", site: 'msales') {
+          if ( jiraVersion = jiraGetVersion id: "${git_tag}", site: 'msales') {
             println "${jiraVersion}"
           } else {
             println "Creating JIRA Version"

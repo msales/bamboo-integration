@@ -23,7 +23,6 @@ pipeline {
           def git_log = readFile('git_commits.log')
 
           jiraVersion(git_tag, JIRA_PROJECT)
-          jiraTicketsFromLog(git_log)
         }
       }
     }
@@ -32,7 +31,7 @@ pipeline {
         sh 'env'
         script {
           def git_log = readFile('git_commits.log')
-          println git_log
+          jiraTicketsFromLog(git_log)
         }
       }
     }

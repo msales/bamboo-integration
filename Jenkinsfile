@@ -22,7 +22,7 @@ pipeline {
         script {
           println git_tag
           println git_tag_old
-
+          println git_log
 
           jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log)

@@ -29,6 +29,7 @@ pipeline {
       steps {
         sh 'env'
         println git_log
+        // comment1
       }
     }
   }

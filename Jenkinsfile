@@ -25,8 +25,7 @@ pipeline {
     stage('JIRA') {
       steps {
         script {
-          def git_log = []
-          new File( 'git_commits.log' ).eachLine { line -> git_log << line }
+          def git_log = new File('git_commits.log') as String[]
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log, jira_version)
           //comment1

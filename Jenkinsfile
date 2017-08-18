@@ -12,7 +12,7 @@ pipeline {
     JIRA_PROJECT = "BLT"
     def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
     def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
-    def git_log = sh(returnStdout: true, script: """git log 2.3.4..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | uniq)""").split()
+    def git_log = sh(returnStdout: true, script: 'git log 2.3.4..HEAD --oneline | grep -Eo \'([A-Z0-9]{3,}-)([0-9]+)\' | uniq)').split()
   }
 
   stages {

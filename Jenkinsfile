@@ -25,6 +25,7 @@ pipeline {
     stage('JIRA') {
       steps {
         script {
+          sh 'env'
           def git_log_string = readFile('git_commits.log')
           def git_log = []
           git_log = git_log_string.split()

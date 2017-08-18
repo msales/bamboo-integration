@@ -24,7 +24,6 @@ pipeline {
     }
     stage('JIRA') {
       steps {
-        sh 'env'
         script {
           def git_log = readFile('git_commits.log')
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT)

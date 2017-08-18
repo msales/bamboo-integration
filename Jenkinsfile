@@ -31,7 +31,7 @@ pipeline {
         sh 'env'
         script {
           def git_log = readFile('git_commits.log')
-          jiraTicketsFromLog(git_log)
+          jiraTicketsFromLog(git_log, git_tag)
           // comment2
         }
       }

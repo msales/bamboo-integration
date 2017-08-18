@@ -28,6 +28,7 @@ pipeline {
           def git_log = readFile('git_commits.log')
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log, jira_version)
+          //comment1
         }
       }
     }

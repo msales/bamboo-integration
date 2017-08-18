@@ -24,6 +24,7 @@ pipeline {
           println git_tag_old
           println git_log
 
+
           jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log)
         }
@@ -34,7 +35,6 @@ pipeline {
         sh 'env'
         println git_log
         // comment1
-        // comment2
       }
     }
   }

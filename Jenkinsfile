@@ -12,6 +12,8 @@ pipeline {
     JIRA_PROJECT = "BLT"
   }
 
+  def git_log = null
+
   stages {
     stage('Checkout') {
       steps {

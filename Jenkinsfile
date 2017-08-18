@@ -23,7 +23,6 @@ pipeline {
         script {
           println git_tag
           println git_tag_old
-          sh git_log_command
           println git_log
 
           jiraVersion(git_tag, JIRA_PROJECT)

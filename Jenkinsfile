@@ -30,8 +30,10 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'env'
-        def git_log = readFile "git_commits.log"
-        println git_log
+        script {
+          def git_log = readFile('git_commits.log')
+          println git_log
+        }
       }
     }
   }

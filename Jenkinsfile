@@ -32,7 +32,6 @@ pipeline {
         script {
           def git_log = readFile('git_commits.log')
           jiraTicketsFromLog(git_log)
-          // comment1
           // comment2
         }
       }

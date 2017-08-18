@@ -26,7 +26,7 @@ pipeline {
       steps {
         script {
           def git_log_file = new File("${env.WORKSPACE}/git_commits.log")
-          
+          println git_log_file.getClass()
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log, jira_version)
           //comment1

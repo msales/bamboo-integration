@@ -25,5 +25,11 @@ pipeline {
         }
       }
     }
+    stage('Deploy') {
+      steps {
+        sh 'env'
+        println git_log
+      }
+    }
   }
 }

@@ -28,7 +28,6 @@ pipeline {
         script {
           def git_log = readFile('git_commits.log')
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
-          println jira_version
           jiraTicketsFromLog(git_log, jira_version)
         }
       }

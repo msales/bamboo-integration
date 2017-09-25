@@ -4,9 +4,9 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          env.RELEASE_SCOPE = input message: 'User input required', ok: 'Release!', parameters: [choice(name: 'RELEASE_SCOPE', choices: 'patch\nminor\nmajor', description: 'What is the release scope?')]
+          env.RELEASE_SCOPE = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo', description: 'Make deployment to STAGING ENV ?')]
         }
-        echo "${env.RELEASE_SCOPE}"
+        echo "${env.DEPLOY_STAGING}"
       }
     }
     stage('Test') {

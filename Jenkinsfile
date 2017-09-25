@@ -5,6 +5,7 @@ pipeline {
       steps {
         script {
           def deploy_staging = catchError() { input(message: 'Deploy STAGING ?', id: 'deploy_staging')}
+          echo deploy_staging
         }
         sh 'env'
       }

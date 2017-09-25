@@ -3,8 +3,11 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        input(message: 'Deploy STAGING ? ', id: 'deploy_staging', ok: 'Yes')
         sh 'env'
+        catchError() {
+          input(message: 'Deploy STAGING ?', id: 'deploy_staging')
+        }
+        
       }
     }
     stage('Test') {
@@ -21,6 +24,7 @@ pipeline {
             echo 'I execute elsewhere'
           }
         }
+        
       }
     }
     stage('Deploy Production') {

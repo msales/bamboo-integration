@@ -8,6 +8,10 @@ pipeline {
           input(message: 'Deploy to STAGING ?', id: 'deploy_stage', ok: 'Yes', submitterParameter: 'True')
         }
         
+        catchError() {
+          input(message: 'Deploy to STAGING', id: 'deploy_staging', ok: 'Yes')
+        }
+        
       }
     }
     stage('Test') {

@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          env.RELEASE_SCOPE = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo', description: 'Make deployment to STAGING ENV ?')]
+          env.DEPLOY_STAGING = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo')]
         }
         echo "${env.DEPLOY_STAGING}"
       }

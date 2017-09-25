@@ -14,7 +14,13 @@ pipeline {
     }
     stage('Deploy Staging') {
       steps {
-        echo 'Staging'
+        script {
+          if (env.BRANCH_NAME == 'master') {
+            echo 'Deploy to STAGING'
+          } else {
+            echo 'I execute elsewhere'
+          }
+        }
       }
     }
     stage('Deploy Production') {

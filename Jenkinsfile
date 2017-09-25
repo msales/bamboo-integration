@@ -3,7 +3,11 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        input(message: 'Deploy to STAGING ? ', id: 'deploy_stage ', ok: 'Yes')
+        input(message: 'Deploy to STAGING ? ', id: 'deploy_stage ', ok: 'Yes', submitter: 'aaa', submitterParameter: 'bbb')
+        waitUntil() {
+          input(message: 'test', id: 'ccccc', ok: 'dddd')
+        }
+        
       }
     }
   }

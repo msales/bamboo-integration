@@ -4,9 +4,12 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          env.DEPLOY_STAGING = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo')]
+          if (env.BRANCH_NAME == 'master') {
+            echo 'Not asking'
+          } else {
+            env.DEPLOY_STAGING = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo')]
+          }
         }
-        echo "${env.DEPLOY_STAGING}"
       }
     }
     stage('Test') {

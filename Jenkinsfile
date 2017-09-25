@@ -18,7 +18,7 @@ pipeline {
       steps {
         when {
           anyOf {
-            branch 'master'
+            branch 'master';
             environment name: 'DEPLOY_STAGING', value: 'Yes'
           }
         }

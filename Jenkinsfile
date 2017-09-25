@@ -4,9 +4,10 @@ pipeline {
     stage('Checkout') {
       steps {
         waitUntil() {
-          input(message: 'test', id: 'ccccc', ok: 'dddd')
+          input(message: 'Test', id: 'deploy_stage', ok: 'Yes')
         }
         
+        echo 'Deploying'
       }
     }
   }

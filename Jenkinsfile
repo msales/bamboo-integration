@@ -4,8 +4,8 @@ pipeline {
     stage('Checkout') {
       steps {
         echo 'Deploying'
-        timeout(time: 5) {
-          input(message: 'Deploy to Staging ? ', id: 'deploy_stage', ok: 'Yes')
+        waitUntil() {
+          input(message: 'Deploy to STAGING ?', id: 'deploy_stage', ok: 'Yes', submitterParameter: 'True')
         }
         
       }

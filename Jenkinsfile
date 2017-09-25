@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        catchError() {
-          input(message: 'Deploy to STAGING', id: 'deploy_staging', ok: 'Yes')
+        waitUntil() {
+          input(message: 'Deploy STAGING ? ', id: 'deploy_staging', ok: 'Yes')
         }
         
       }

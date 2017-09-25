@@ -3,10 +3,10 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        sh 'env'
         script {
           def deploy_staging = catchError() { input(message: 'Deploy STAGING ?', id: 'deploy_staging')}
         }
+        sh 'env'
       }
     }
     stage('Test') {

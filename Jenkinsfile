@@ -17,7 +17,7 @@ pipeline {
     stage('Deploy Staging') {
       when {
         anyOf {
-          branch 'master';
+          branch 'jenkins';
           environment name: 'DEPLOY_STAGING', value: 'Yes'
         }
       }

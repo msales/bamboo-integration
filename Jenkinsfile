@@ -4,10 +4,9 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'env'
-        catchError() {
-          input(message: 'Deploy STAGING ?', id: 'deploy_staging')
+        script {
+          def deploy_staging = catchError() { input(message: 'Deploy STAGING ?', id: 'deploy_staging')}
         }
-        
       }
     }
     stage('Test') {

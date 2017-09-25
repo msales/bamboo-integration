@@ -3,11 +3,11 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        waitUntil() {
-          input(message: 'Test', id: 'deploy_stage', ok: 'Yes')
+        echo 'Deploying'
+        timeout(time: 25) {
+          input(message: 'Deploy to Staging ? ', id: 'deploy_stage', ok: 'Yes')
         }
         
-        echo 'Deploying'
       }
     }
     stage('Test') {

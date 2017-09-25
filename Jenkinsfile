@@ -15,16 +15,14 @@ pipeline {
       }
     }
     stage('Deploy Staging') {
+      when {
+        anyOf {
+          branch 'master';
+          environment name: 'DEPLOY_STAGING', value: 'Yes'
+        }
+      }
       steps {
-        when {
-          anyOf {
-            branch 'master';
-            environment name: 'DEPLOY_STAGING', value: 'Yes'
-          }
-        }
-        steps {
-          echo 'Deploying'
-        }
+        echo 'Deploying'
       }
     }
     stage('Deploy Production') {

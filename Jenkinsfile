@@ -3,10 +3,16 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        waitUntil() {
-          input(message: 'Deploy STAGING ? ', id: 'deploy_staging', ok: 'Yes')
+        try {
+            input(message: 'Deploy STAGING ? ', id: 'deploy_staging', ok: 'Yes')
         }
-        
+        catch (exc) {
+            echo 'Something failed, I should sound the klaxons!'
+            environment {
+              deploy_staging = 'True'
+            }
+        }
+        sh 'env'  
       }
     }
     stage('Test') {

@@ -3,22 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        script {
-          sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > git_commits.log")
-        }
-        
         input(message: 'Deploy to STAGING ? ', id: 'deploy_stage ', ok: 'Yes')
-      }
-    }
-    stage('JIRA') {
-      steps {
-        script {
-          def git_log = readFile('git_commits.log')
-          println git_log
-          def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
-          jiraTicketsFromLog(git_log, jira_version)
-        }
-        
       }
     }
   }

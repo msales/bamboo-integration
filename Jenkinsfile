@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          def deploy_staging = input id: 'Deploy_staging', message: 'Deploy Staging', parameters: [choice(choices: ['Yes', 'No'], description: '', name: 'deploy_stg')]
+          input id: 'deploy_staging', message: 'Deploy Staging ?', parameters: [choice(choices: ['Yes', 'No'], description: '', name: 'deploy_stg')]
           echo deploy_staging
         }
         sh 'env'

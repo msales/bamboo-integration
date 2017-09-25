@@ -3,16 +3,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        try {
-            input(message: 'Deploy STAGING ? ', id: 'deploy_staging', ok: 'Yes')
-        }
-        catch (exc) {
-            echo 'Something failed, I should sound the klaxons!'
-            environment {
-              deploy_staging = 'True'
-            }
-        }
-        sh 'env'  
+        input(message: 'Deploy STAGING ? ', id: 'deploy_staging', ok: 'Yes')
+        sh 'env'
       }
     }
     stage('Test') {

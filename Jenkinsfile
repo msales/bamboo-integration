@@ -36,17 +36,31 @@ pipeline {
       }
     }
     stage('Merging branches') { 
+      when {
+        anyOf {
+          branch 'master';
+          branch 'hotfix'
+        }
+      }
       steps {
         sshagent(['a5c95e02-fd03-4e55-8109-78534e97e042']) {
           echo 'Merging master -> hotfix...'
-          // sh 'git config user.name "msalesci"'
-          // sh 'git config remote.origin.url https://github.com/msales/bamboo-integration.git'
           sh 'git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*'
-          // sh 'git fetch --no-tags --progress https://github.com/msales/bamboo-integration.git +refs/heads/*:refs/remotes/origin/*'
           sh 'git fetch -a'
           sh 'git branch -a'
-          sh 'git checkout hotfix'
-          sh 'git merge origin/master'
+          script {
+            if (env.BRANCH_NAME == 'master') {
+              sh 'git checkout hotfix'
+              catchError {
+                sh 'git merge origin/master'
+              }
+            } else if (env.BRANCH_NAME == 'hotfix') {
+              sh 'git checkout master'
+              catchError {
+                sh 'git merge origin/master'
+              }
+            }
+          }
           sh 'git push'
         }
       }

@@ -38,6 +38,7 @@ pipeline {
       steps {
         echo 'Merging master -> hotfix...'
         sh 'git fetch'
+        sh 'git branch'
         sh 'git checkout hotfix'
         sh 'git merge origin/master'
         sh 'git push'

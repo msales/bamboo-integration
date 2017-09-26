@@ -39,6 +39,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_AUTHOR_NAME')]) {
           echo 'Merging master -> hotfix...'
+          sh 'git config user.name "msalesci"'
           sh 'git config remote.origin.url https://github.com/msales/bamboo-integration.git'
           sh 'git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*'
           // sh 'git fetch --no-tags --progress https://github.com/msales/bamboo-integration.git +refs/heads/*:refs/remotes/origin/*'

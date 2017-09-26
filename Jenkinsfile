@@ -10,6 +10,7 @@ pipeline {
             env.DEPLOY_STAGING = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo')]
           }
         }
+        sh 'env'
       }
     }
     stage('Test') {

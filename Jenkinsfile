@@ -52,4 +52,9 @@ pipeline {
   options {
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
   }
+  post {
+    always {
+      cleanWs notFailBuild: true
+    }
+  }
 }

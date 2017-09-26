@@ -39,7 +39,7 @@ pipeline {
       steps {
         withCredentials([string(credentialsId: 'c7c232cd-d4dd-41d1-a867-e6c33740edb4', variable: 'GIT_ASKPASS')]) {
           echo 'Merging master -> hotfix...'
-          sh 'git fetch --no-tags --progress https://github.com/msales/bamboo-integration.git +refs/heads/*:refs/remotes/origin/master'
+          sh 'git fetch --no-tags --progress https://github.com/msales/bamboo-integration.git +refs/heads/*:refs/remotes/origin/*'
           sh 'git branch -a'
           sh 'git checkout hotfix'
           sh 'git merge origin/master'

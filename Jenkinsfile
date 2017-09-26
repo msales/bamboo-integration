@@ -37,7 +37,7 @@ pipeline {
     stage('Merging branches') {
       steps {
         echo 'Merging master -> hotfix...'
-        sh 'git fetch -a'
+        sh 'git fetch --all'
         sh 'git branch -a'
         sh 'git checkout hotfix'
         sh 'git merge origin/master'

@@ -57,7 +57,7 @@ pipeline {
             } else if (env.BRANCH_NAME == 'hotfix') {
               sh 'git checkout master'
               catchError {
-                sh 'git merge origin/master'
+                sh 'git merge origin/hotfix'
               }
             }
           }

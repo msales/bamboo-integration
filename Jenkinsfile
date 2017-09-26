@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          if (env.BRANCH_NAME == 'master') || (env.BRANCH_NAME.starsWith('PR-')) {
+          if (env.BRANCH_NAME == 'master') or (env.BRANCH_NAME.starsWith('PR-')) {
             echo 'Not asking'
           } else {
             env.DEPLOY_STAGING = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo')]

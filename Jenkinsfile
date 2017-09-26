@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { label "optimizer-ui" }
   stages {
     stage('Checkout') {
       steps {

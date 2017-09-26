@@ -11,6 +11,7 @@ pipeline {
           }
         }
         sh 'env'
+        sh 'sleep 1000'
       }
     }
     stage('Test') {

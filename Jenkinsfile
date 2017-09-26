@@ -34,6 +34,15 @@ pipeline {
         echo 'Test_NEW...'
       }
     }
+    stage('Merging branches') {
+      steps {
+        echo 'Merging master -> hotfix...'
+        sh 'git fetch'
+        sh 'git checkout hotfix'
+        sh 'git merge origin/master'
+        sh 'git push'
+      }
+    }
   }
   environment {
     SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'

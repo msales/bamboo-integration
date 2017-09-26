@@ -11,7 +11,6 @@ pipeline {
           }
         }
         sh 'env'
-        sh 'sleep 1000'
       }
     }
     stage('Test') {
@@ -36,7 +35,7 @@ pipeline {
         echo 'Test_NEW...'
       }
     }
-    stage('Merging branches') {
+    stage('Merging branches') { 
       steps {
         sshagent(['a5c95e02-fd03-4e55-8109-78534e97e042']) {
           echo 'Merging master -> hotfix...'

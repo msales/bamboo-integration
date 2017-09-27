@@ -32,11 +32,7 @@ pipeline {
           def jobs = jobs_read.split("\n")
           jobs.each() {
             parallel {
-              stage("Server_xxx}") {
-                steps {
-                  echo "Deploy ${it}"
-                }
-              }
+              ${it}: { echo "something"}
             }
           }
         }

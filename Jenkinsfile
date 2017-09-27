@@ -32,7 +32,7 @@ pipeline {
           def jobs = jobs_read.split("\n")
           parallel (
             jobs.each() {
-              "${it}": {echo "hey"},
+              "server_${it}": {echo "hey"},
             }
           )
         }

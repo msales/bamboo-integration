@@ -30,11 +30,10 @@ pipeline {
         script {
           def jobs_read = readFile("jobs")
           def jobs = jobs_read.split("\n")
-            parallel (
-              jobs.each() {
-                "deploy${it}": { echo "something"}
-              }
-            )
+          parallel {
+            "aaa": {echo "hey"},
+            "bbb": {echo "hello"},
+          }
         }
       }
     }

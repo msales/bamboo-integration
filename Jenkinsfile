@@ -34,7 +34,7 @@ pipeline {
           jobs.each {
             stage -> builders[stage] = {
               echo stage
-              echo "${it}"
+              echo "hello ${stage}"
               sh 'sleep 10'
             }
           }

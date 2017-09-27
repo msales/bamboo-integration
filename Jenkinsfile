@@ -28,7 +28,8 @@ pipeline {
       }
       steps {
         script {
-          def jobs = readFile("jobs")
+          def jobs_read = readFile("jobs")
+          def jobs = jobs_read.split("\n")
           jobs.each() {
             echo "${it}"
           }

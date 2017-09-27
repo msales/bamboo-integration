@@ -37,7 +37,6 @@ pipeline {
                   echo "Deploy"
                 }
               }
-              }
             }
           }
         }

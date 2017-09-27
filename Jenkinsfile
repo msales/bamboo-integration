@@ -31,7 +31,12 @@ pipeline {
           def jobs_read = readFile("jobs")
           def jobs = jobs_read.split("\n")
           def builders = [:]
-          ['a','b'].each {stage -> builders[stage] = {echo stage}}
+          jobs.each {
+            stage -> builders[stage] = {
+              echo stage
+              sh 'sleep 10'
+            }
+          }
           parallel builders
         }
       }

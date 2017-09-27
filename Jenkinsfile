@@ -31,8 +31,9 @@ pipeline {
           def jobs_read = readFile("jobs")
           def jobs = jobs_read.split("\n")
           parallel (
-            "aaa": {echo "hey"},
-            "bbb": {echo "hello"},
+            jobs.each() {
+              "${it}": {echo "hey"},
+            }
           )
         }
       }

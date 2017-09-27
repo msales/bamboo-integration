@@ -30,10 +30,10 @@ pipeline {
         script {
           def jobs_read = readFile("jobs")
           def jobs = jobs_read.split("\n")
-          parallel {
+          parallel (
             "aaa": {echo "hey"},
             "bbb": {echo "hello"},
-          }
+          )
         }
       }
     }

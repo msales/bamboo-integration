@@ -30,8 +30,8 @@ pipeline {
         script {
             for (int i = 0; i < 10; i++) {
               parallel {
-                "server_${i}": {
-                  echo "Deploying server_${i}"
+                "server": {
+                  echo "Deploying server"
                   sh 'sleep 10'
                 }
               }

@@ -28,14 +28,10 @@ pipeline {
       }
       steps {
         script {
-            for (int i = 0; i < 10; i++) {
-              parallel {
-                "server": {
-                  echo "Deploying server"
-                  sh 'sleep 10'
-                }
-              }
-            }
+          def jobs = readFile("jobs")
+          jobs.each() {
+            echo "${it}"
+          }
         }
       }
     }

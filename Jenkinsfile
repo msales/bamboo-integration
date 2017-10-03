@@ -28,7 +28,7 @@ pipeline {
             // notify deployment slack channel
             // slackNotification('STARTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
             def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
-            sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > /tmp/bamboo-integration-git-commits.log")
+            def git_log = sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u")
             env.DEPLOY_STAGING = 'No'
           } else if (env.BRANCH_NAME.startsWith('PR-')) {
             env.DEPLOY_STAGING = 'No'
@@ -49,7 +49,8 @@ pipeline {
         script {
           sh("cat ${GIT_COMMITS_LOG}")
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
-          def git_log = GIT_COMMITS_LOG.readLines()
+          def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
+          def git_log = sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u")
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT, "OUI", "create")
           jiraTicketsFromLog(git_log, jira_version)
         }

@@ -50,7 +50,7 @@ pipeline {
           sh("cat ${GIT_COMMITS_LOG}")
           def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
           sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > /tmp/bamboo-integration-git-commits.log")
-          def git_log = readFile('optimizer-ui-git-commits.log')
+          def git_log = readFile('/tmp/optimizer-ui-git-commits.log')
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log, jira_version)
         }

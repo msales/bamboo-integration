@@ -47,7 +47,7 @@ pipeline {
       }
       steps {
         script {
-          sh("cat ${GIT_COMMITS_LOG")
+          sh("cat ${GIT_COMMITS_LOG}")
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           def git_log = readFile("${GIT_COMMITS_LOG}")
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT, "OUI", "create")

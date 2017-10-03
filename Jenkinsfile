@@ -18,7 +18,7 @@ pipeline {
       steps {
         // slackNotification('STARTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, SLACK_WEBHOOK_URL)
         sh 'env'
-        script {
+        script {  
           if (env.BRANCH_NAME == 'master') {
             // notify deployment slack channel
             // slackNotification('STARTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")

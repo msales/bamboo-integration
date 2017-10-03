@@ -23,12 +23,12 @@ pipeline {
             // notify deployment slack channel
             // slackNotification('STARTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
             def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
-            sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > ${GIT_COMMITS_LOG}")
+            sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > /tmp/bamboo-integration-git-commits.log")
           } else if (env.BRANCH_NAME == 'hotfix') {
             // notify deployment slack channel
             // slackNotification('STARTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
             def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
-            sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > ${GIT_COMMITS_LOG}")
+            sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > /tmp/bamboo-integration-git-commits.log")
             env.DEPLOY_STAGING = 'No'
           } else if (env.BRANCH_NAME.startsWith('PR-')) {
             env.DEPLOY_STAGING = 'No'

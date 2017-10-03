@@ -51,7 +51,7 @@ pipeline {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
           def git_log = sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u")
-          def jira_version = jiraVersion(git_tag, JIRA_PROJECT, "OUI", "create")
+          def jira_version = jiraVersion(git_tag, JIRA_PROJECT)
           jiraTicketsFromLog(git_log, jira_version)
         }
       }
@@ -147,9 +147,7 @@ pipeline {
       // slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, SLACK_WEBHOOK_URL)
       // notify deployment slack channel
       // slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
-      script {
-        jiraVersion(GIT_TAG, JIRA_PROJECT, "OUI", "released")
-      }
+      echo "Success"
     }
   }
 }

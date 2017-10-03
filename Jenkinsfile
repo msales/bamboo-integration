@@ -139,7 +139,6 @@ pipeline {
   }
   post {
     always {
-      // junit 'build/*.xml'
       cleanWs notFailBuild: true
     }
     success {

@@ -48,6 +48,7 @@ pipeline {
       steps {
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
+          env.GIT_TAG_VAR=$git_tag
           def git_log = readFile('/tmp/bamboo-integration-git-commits.log')
           def jira_version = jiraVersion("BLT ${git_tag}", JIRA_PROJECT, "create")
           jiraTicketsFromLog(git_log, jira_version)
@@ -146,7 +147,7 @@ pipeline {
       // notify deployment slack channel
       // slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
       script {
-        def jira_version = jiraVersion("BLT ${git_tag}", JIRA_PROJECT, "released")
+        def jira_version = jiraVersion("BLT ${env.GIT_TAG_VAR}", JIRA_PROJECT, "released")
       }
     }
   }

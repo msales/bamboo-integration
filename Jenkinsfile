@@ -1,16 +1,33 @@
 pipeline {
+  options { buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')) }
   agent { label "optimizer-ui" }
+  environment {
+    JIRA_PROJECT = "BLT"
+    GIT_COMMITS_LOG = "/tmp/bamboo-integration-git-commits.log"
+  }
   stages {
     stage('Checkout') {
       steps {
         script {
           if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('PR-')) {
             echo 'Not asking'
+            def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
+            sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > ${GIT_COMMITS_LOG}")
           } else {
             env.DEPLOY_STAGING = input message: 'Deploy to STAGING ?', ok: 'Confirm', parameters: [choice(name: 'DEPLOY_STAGING', choices: 'Yes\nNo')]
           }
         }
         sh 'env'
+      }
+    }
+    stage('JIRA') {
+      steps {
+        script {
+          def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
+          def git_log = readFile("${GIT_COMMITS_LOG}")
+          def jira_version = jiraVersion(git_tag, JIRA_PROJECT, "OUI", "create")
+          jiraTicketsFromLog(git_log, jira_version)
+        }
       }
     }
     stage('Test') {
@@ -47,38 +64,38 @@ pipeline {
         echo 'Test_NEW...'
       }
     }
-    // stage('Merging branches') { 
-    //   when {
-    //     anyOf {
-    //       branch 'master';
-    //       branch 'hotfix'
-    //     }
-    //   }
-    //   steps {
-    //     sshagent(['a5c95e02-fd03-4e55-8109-78534e97e042']) {
-    //       echo 'Merging master -> hotfix...'
-    //       sh 'git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*'
-    //       sh 'git fetch -a'
-    //       sh 'git branch -a'
-    //       script {
-    //         if (env.BRANCH_NAME == 'master') {
-    //           sh 'git checkout hotfix'
-    //           catchError {
-    //             sh 'git merge origin/master'
-    //           }
-    //         } else if (env.BRANCH_NAME == 'hotfix') {
-    //           sh 'git checkout master'
-    //           catchError {
-    //             sh 'git merge origin/hotfix'
-    //           }
-    //         }
-    //       }
-    //       sh 'git push'
-    //     }
-    //   }
-    // }
   }
-  options {
-    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
+  post {
+    always {
+      junit 'build/*.xml'
+      cleanWs notFailBuild: true
+    }
+    success {
+      slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, SLACK_WEBHOOK_URL)
+      // notify deployment slack channel
+      slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
+      script {
+        def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
+        jiraVersion(git_tag, JIRA_PROJECT, "OUI", "released")
+      }
+    }
+    failure {
+      slackNotification('FAILED', 'msales', 'optimizer-ui', env.BRANCH_NAME, SLACK_WEBHOOK_URL)
+      // notify deployment slack channel
+      slackNotification('FAILED', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
+      sh "mysql -u root -e 'DROP DATABASE 'oui_phpunit_${env.GIT_COMMIT}''"
+      sh "mysql -u root -e 'DROP DATABASE oui_behat_${env.GIT_COMMIT}'"
+      sh "rm -rf /tmp/backups/oui_phpunit_${env.GIT_COMMIT}"
+      sh "rm -rf /tmp/backups/oui_behat_${env.GIT_COMMIT}"
+    }
+    aborted {
+      slackNotification('ABORTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, SLACK_WEBHOOK_URL)
+      // notify deployment slack channel
+      slackNotification('ABORTED', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
+      sh "mysql -u root -e 'DROP DATABASE 'oui_phpunit_${env.GIT_COMMIT}''"
+      sh "mysql -u root -e 'DROP DATABASE oui_behat_${env.GIT_COMMIT}'"
+      sh "rm -rf /tmp/backups/oui_phpunit_${env.GIT_COMMIT}"
+      sh "rm -rf /tmp/backups/oui_behat_${env.GIT_COMMIT}"
+    }
   }
 }

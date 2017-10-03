@@ -145,7 +145,9 @@ pipeline {
       // slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, SLACK_WEBHOOK_URL)
       // notify deployment slack channel
       // slackNotification('SUCCESSFUL', 'msales', 'optimizer-ui', env.BRANCH_NAME, "https://hooks.slack.com/services/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")
-      echo "Success"
+      script {
+        def jira_version = jiraVersion("BLT ${git_tag}", JIRA_PROJECT, "released")
+      }
     }
   }
 }

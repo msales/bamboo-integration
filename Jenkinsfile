@@ -1,4 +1,4 @@
-@Library('msales-jenkins-libraries') _
+@Library('msales-jenkins-libraries@Add-new-functionality-to-jiraVersion') _
 
 pipeline {
   agent { label "optimizer-ui" }
@@ -49,7 +49,7 @@ pipeline {
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           def git_log = readFile('/tmp/bamboo-integration-git-commits.log')
-          def jira_version = jiraVersion("BLT ${git_tag}", JIRA_PROJECT)
+          def jira_version = jiraVersion("BLT ${git_tag}", JIRA_PROJECT, "create")
           jiraTicketsFromLog(git_log, jira_version)
         }
       }

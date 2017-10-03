@@ -11,7 +11,6 @@ pipeline {
     // SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
     JIRA_PROJECT = "BLT"
     GIT_COMMITS_LOG = "/tmp/bamboo-integration-git-commits.log"
-    GIT_LOG = sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u")
   }
 
   stages {
@@ -48,6 +47,8 @@ pipeline {
       }
       steps {
         script {
+          def git_tag_old = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 HEAD^').trim()
+          sh("git log ${git_tag_old}..HEAD --oneline | grep -Eo '([A-Z0-9]{3,}-)([0-9]+)' | sort -u > /tmp/bamboo-integration-git-commits.log")
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           def git_log = readFile("${GIT_COMMITS_LOG}")
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT, "OUI", "create")

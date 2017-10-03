@@ -49,7 +49,7 @@ pipeline {
         script {
           def git_tag = sh(returnStdout: true, script: 'git describe --tags').trim()
           def git_log = readFile("${GIT_COMMITS_LOG}")
-          GIT_TAG=git_tag
+          env.GIT_TAG=git_tag
           def jira_version = jiraVersion(git_tag, JIRA_PROJECT, "OUI", "create")
           jiraTicketsFromLog(git_log, jira_version)
         }

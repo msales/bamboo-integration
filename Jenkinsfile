@@ -137,6 +137,7 @@ pipeline {
         script {
           try {
             sh 'grep ssdasd from_file'
+            sh 'grep another another_file'
           } catch (err) {
             echo "Caught: ${err}"
             //currentBuild.result = 'FAILURE'

@@ -140,6 +140,7 @@ pipeline {
             sh 'grep another another_file'
           } catch (err) {
             echo "Caught: ${err}"
+            slackSend channel: '#jenkins_test', color: 'danger', message: 'Merging branch failed'
             //currentBuild.result = 'FAILURE'
           }
         }

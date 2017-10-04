@@ -134,6 +134,14 @@ pipeline {
       }
       steps {
         echo "Mergin branches..."
+        script {
+          try {
+            sh 'grep ssdasd from_file'
+          } catch (err) {
+            echo "Caught: ${err}"
+            //currentBuild.result = 'FAILURE'
+          }
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 @Library('msales-jenkins-libraries@PL1-1291') _
 
 pipeline {
-  agent { label "optimizer-ui" }
+//  agent { label "optimizer-ui" }
 
   options {
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))

@@ -136,8 +136,7 @@ pipeline {
         echo "Mergin branches..."
         script {
           try {
-            sh 'grep ssdasd from_file'
-            sh 'grep another another_file'
+            sh 'uname -a | grep -i linux'
           } catch (err) {
             echo "Caught: ${err}"
             //slackSend channel: '#jenkins_test', color: 'danger', message: "Failed to merge branch: ${env.BRANCH_NAME}"

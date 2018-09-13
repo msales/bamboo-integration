@@ -1,3 +1,7 @@
 @Library('msales-jenkins-unified-k8s-pipeline@dev') _
 
-burzumIshi( [ "PROJECT" : "BAMBOO" ] )
+burzumIshi( 
+  [ "PROJECT" : "BAMBOO" ,
+    "K8S_NAMESPACE" "TEST"
+  ]
+)

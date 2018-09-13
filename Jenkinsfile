@@ -1,3 +1,3 @@
-@Library('jenkins-unified-k8s-pipeline@dev') _
+@Library('msales-jenkins-unified-k8s-pipeline@dev') _
 
 burzumIshi(currentBuild.getNumber())

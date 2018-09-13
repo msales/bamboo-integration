@@ -2,6 +2,6 @@
 
 burzumIshi( 
   [ "PROJECT" : "BAMBOO" ,
-    "K8S_NAMESPACE" "TEST"
+    "K8S_NAMESPACE" : "TEST"
   ]
 )

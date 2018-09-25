@@ -7,7 +7,7 @@ burzumIshi(
     "DEPLOYMENT_PATTERN" : [
       "Staging" : [
         "eu-central-1" :  [
-           "bamboo-namespace : [ "deployments" : [ [ "bamboo" : [ "bamboo" ] ] ] ]
+           "bamboo-namespace" : [ "deployments" : [ [ "bamboo" : [ "bamboo" ] ] ] ]
         ]
       ]
     ]

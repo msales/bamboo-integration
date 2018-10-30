@@ -16,7 +16,8 @@ COPY main.py /app
 WORKDIR /app
 
 RUN test -n "${GITHUB_TOKEN}" && \
-  echo -ne "machine github.com\n\tlogin ${GITHUB_USER}\n\tpassword ${GITHUB_TOKEN}\n" > .netrc
+  echo -ne "machine github.com\n\tlogin ${GITHUB_USER}\n\tpassword ${GITHUB_TOKEN}\n" > .netrc || \
+  true
 
 ENTRYPOINT ["python3"]
 CMD ["-u", "main.py"]

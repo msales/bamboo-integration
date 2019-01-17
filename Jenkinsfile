@@ -1,4 +1,3 @@
-@Library('msales-jenkins-unified-k8s-pipeline@dev') _
 
 simplePipeline(
   [ "PROJECT" : "bamboo/bamboo" ,
@@ -7,4 +6,5 @@ simplePipeline(
     "SILIENT" : true
   ]
 )
+
 

@@ -1,4 +1,4 @@
-@Library('msales-jenkins-unified-k8s-pipeline@master') _
+@Library('msales-jenkins-unified-k8s-pipeline@PL1-1631') _
 
 simplePipeline(
   [ "PROJECT" : "bamboo/bamboo" ,
